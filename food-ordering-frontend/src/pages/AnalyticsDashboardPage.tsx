@@ -54,6 +54,7 @@ const AnalyticsDashboardPage = () => {
   const {
     data: analyticsData,
     isLoading,
+    isFetching,
     error,
     refetch,
   } = useGetAnalytics(timeRange);
@@ -117,11 +118,11 @@ const AnalyticsDashboardPage = () => {
             </select>
             <Button
               onClick={refreshData}
-              disabled={isLoading}
+              disabled={isLoading || isFetching}
               className="flex items-center gap-2"
             >
               <RefreshCw
-                className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+                className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`}
               />
               Refresh
             </Button>

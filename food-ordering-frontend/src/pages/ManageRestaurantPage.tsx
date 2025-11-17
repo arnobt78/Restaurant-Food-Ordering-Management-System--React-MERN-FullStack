@@ -22,6 +22,7 @@ const ManageRestaurantPage = () => {
   const {
     orders,
     isLoading: ordersLoading,
+    isFetching: ordersFetching,
     refetch,
   } = useGetMyRestaurantOrders();
   const queryClient = useQueryClient();
@@ -59,12 +60,12 @@ const ManageRestaurantPage = () => {
         <h1 className="text-2xl font-bold">Manage Restaurant</h1>
         <Button
           onClick={handleRefreshOrders}
-          disabled={ordersLoading}
+          disabled={ordersLoading || ordersFetching}
           variant="outline"
           size="sm"
         >
           <RefreshCw
-            className={`h-4 w-4 mr-2 ${ordersLoading ? "animate-spin" : ""}`}
+            className={`h-4 w-4 mr-2 ${ordersFetching ? "animate-spin" : ""}`}
           />
           Refresh Orders
         </Button>

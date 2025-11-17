@@ -1,11 +1,22 @@
 import SearchBar, { SearchForm } from "@/components/SearchBar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useCitySearch } from "@/api/CityApi";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated, isLoading: isAuthLoading } = useAuth0();
   const { loading: citiesLoading } = useCitySearch();
+
+  // Redirect authenticated users to their intended destination
+  useEffect(() => {
+    if (!isAuthLoading && isAuthenticated && location.state?.returnTo) {
+      navigate(location.state.returnTo, { replace: true });
+    }
+  }, [isAuthLoading, isAuthenticated, location.state, navigate]);
 
   const handleSearchSubmit = (formValues: SearchForm) => {
     const cityParam =

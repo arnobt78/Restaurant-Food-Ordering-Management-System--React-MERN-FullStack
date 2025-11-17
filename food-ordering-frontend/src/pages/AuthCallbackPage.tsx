@@ -5,18 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 const AuthCallbackPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const { createUser } = useCreateMyUser();
 
   const hasCreatedUser = useRef(false);
+  const hasNavigated = useRef(false);
 
   useEffect(() => {
-    if (user?.sub && user?.email && !hasCreatedUser.current) {
+    if (isAuthenticated && user?.sub && user?.email && !hasCreatedUser.current) {
       createUser({ auth0Id: user.sub, email: user.email });
       hasCreatedUser.current = true;
     }
-    navigate("/");
-  }, [createUser, navigate, user]);
+  }, [createUser, isAuthenticated, user]);
+
+  useEffect(() => {
+    if (isAuthenticated && !hasNavigated.current) {
+      // Auth0ProviderWithNavigate's onRedirectCallback should handle the returnTo
+      // But if we end up here, navigate to home as fallback
+      // The returnTo should have been handled by onRedirectCallback
+      hasNavigated.current = true;
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return <>Loading...</>;
 };

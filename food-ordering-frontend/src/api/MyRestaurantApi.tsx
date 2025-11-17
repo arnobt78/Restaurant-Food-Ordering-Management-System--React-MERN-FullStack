@@ -150,6 +150,7 @@ export const useGetMyRestaurantOrders = () => {
   const {
     data: orders,
     isLoading,
+    isFetching,
     refetch,
   } = useQuery("fetchMyRestaurantOrders", getMyRestaurantOrdersRequest, {
     refetchInterval: 5000, // Refetch every 5 seconds
@@ -157,7 +158,7 @@ export const useGetMyRestaurantOrders = () => {
     staleTime: 0, // Consider data stale immediately
   });
 
-  return { orders, isLoading, refetch };
+  return { orders, isLoading, isFetching, refetch };
 };
 
 type UpdateOrderStatusRequest = {
