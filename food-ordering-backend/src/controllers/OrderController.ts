@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import Restaurant, { MenuItemType } from "../models/restaurant";
 import Order from "../models/order";
 
@@ -60,16 +61,36 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
   }
 
   if (event.type === "checkout.session.completed") {
-    const order = await Order.findById(event.data.object.metadata?.orderId);
+    const orderId = event.data.object.metadata?.orderId;
 
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
+    // Validate that orderId is a valid MongoDB ObjectId
+    if (!orderId || !mongoose.Types.ObjectId.isValid(orderId)) {
+      console.error(
+        `Invalid orderId in Stripe webhook: ${orderId}. Expected MongoDB ObjectId, but received: ${typeof orderId}`
+      );
+      return res.status(400).json({
+        message: "Invalid order ID format in webhook metadata",
+      });
     }
 
-    order.totalAmount = event.data.object.amount_total;
-    order.status = "paid";
+    try {
+      const order = await Order.findById(orderId);
 
-    await order.save();
+      if (!order) {
+        console.error(`Order not found for ID: ${orderId}`);
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      order.totalAmount = event.data.object.amount_total;
+      order.status = "paid";
+
+      await order.save();
+    } catch (error: any) {
+      console.error(`Error processing order ${orderId}:`, error);
+      return res.status(500).json({
+        message: "Error processing order update",
+      });
+    }
   }
 
   res.status(200).send();

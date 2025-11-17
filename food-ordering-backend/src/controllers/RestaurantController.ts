@@ -1,9 +1,17 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import Restaurant from "../models/restaurant";
 
 const getRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurantId = req.params.restaurantId;
+
+    // Validate that restaurantId is a valid MongoDB ObjectId
+    if (!restaurantId || !mongoose.Types.ObjectId.isValid(restaurantId)) {
+      return res.status(400).json({
+        message: "Invalid restaurant ID format",
+      });
+    }
 
     const restaurant = await Restaurant.findById(restaurantId);
     if (!restaurant) {

@@ -123,6 +123,13 @@ const updateOrderStatus = async (req: Request, res: Response) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
+    // Validate that orderId is a valid MongoDB ObjectId
+    if (!orderId || !mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({
+        message: "Invalid order ID format",
+      });
+    }
+
     const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({ message: "order not found" });
