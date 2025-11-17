@@ -6,7 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 import {
   ChevronUp,
   Calendar,
@@ -23,10 +25,47 @@ import {
 
 const OrderStatusPage = () => {
   const { orders, isLoading } = useGetMyOrders();
+  const [searchParams, setSearchParams] = useSearchParams();
   // Group visible orders by date with expand/collapse
   const [expandedDates, setExpandedDates] = useState<{
     [date: string]: boolean;
   }>({});
+
+  // Check for successful payment and show toast notification
+  useEffect(() => {
+    const success = searchParams.get("success");
+    if (success === "true") {
+      // Show success toast notification
+      toast.success(
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-full bg-green-100 text-green-800">
+            <CheckCircle className="h-5 w-5" />
+          </div>
+          <div className="flex flex-col">
+            <div className="font-medium">Payment Successful!</div>
+            <div className="text-sm text-muted-foreground">
+              Your order has been confirmed and is being processed
+            </div>
+          </div>
+        </div>,
+        {
+          duration: 5000,
+          position: "top-right",
+          style: {
+            background: "white",
+            border: "1px solid #10b981",
+            borderRadius: "8px",
+            boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+          },
+        }
+      );
+
+      // Remove the success parameter from URL to prevent showing toast again on refresh
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete("success");
+      setSearchParams(newSearchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   // Enhanced loading state with skeleton
   if (isLoading) {
