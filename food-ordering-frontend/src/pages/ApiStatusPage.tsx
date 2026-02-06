@@ -53,7 +53,7 @@ const ApiStatusPage = () => {
       status: "healthy",
       responseTime: 45,
       endpoint: `${
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:7001"
+        import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"
       }/health`,
       description: "Main API server health check",
     },
@@ -104,7 +104,7 @@ const ApiStatusPage = () => {
 
       // Check API Server health
       const apiBaseUrl =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:7001";
+        import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
       const apiResponse = await fetch(`${apiBaseUrl}/health`);
       const apiEndTime = Date.now();
       const apiResponseTime = apiEndTime - startTime;

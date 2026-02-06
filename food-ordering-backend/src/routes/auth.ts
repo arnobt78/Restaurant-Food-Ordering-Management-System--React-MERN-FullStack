@@ -11,7 +11,7 @@ const router = express.Router();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_SECRET;
 const FRONTEND_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
-const BACKEND_URL = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 7001}`).replace(/\/$/, "");
+const BACKEND_URL = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 5000}`).replace(/\/$/, "");
 
 router.get("/google", (req: Request, res: Response) => {
   if (!GOOGLE_CLIENT_ID) {

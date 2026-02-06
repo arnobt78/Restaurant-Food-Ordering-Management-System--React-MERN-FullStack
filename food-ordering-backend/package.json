@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"nodemon\" \"npm run stripe\"",
     "dev:no-stripe": "nodemon",
-    "stripe": "stripe listen --forward-to localhost:7001/api/order/checkout/webhook",
+    "stripe": "stripe listen --forward-to localhost:5000/api/order/checkout/webhook",
     "build": "npm install && npx tsc",
     "start": "node dist/index.js"
   },

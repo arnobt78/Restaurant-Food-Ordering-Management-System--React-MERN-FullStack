@@ -61,7 +61,7 @@ const SignInPage = () => {
   };
 
   const handleGoogleSignIn = () => {
-    const apiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:7001";
+    const apiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     window.location.href = `${apiUrl}/api/auth/google`;
   };
 

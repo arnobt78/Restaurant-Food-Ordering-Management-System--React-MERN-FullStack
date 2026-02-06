@@ -68,6 +68,7 @@ app.use("/api/restaurant", restaurantRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/business-insights", analyticsRoute);
 
-app.listen(7001, () => {
-  console.log("server started on localhost:7001");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });
