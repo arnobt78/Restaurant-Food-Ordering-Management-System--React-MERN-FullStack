@@ -51,7 +51,7 @@ app.get("/", (req: Request, res: Response) => {
   );
 });
 
-app.get("/health", async (req: Request, res: Response) => {
+const healthHandler = async (req: Request, res: Response) => {
   const uptime = Math.floor((Date.now() - serverStartTime) / 1000);
   res.json({
     message: "health OK!",
@@ -59,7 +59,9 @@ app.get("/health", async (req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
     serverStartTime: new Date(serverStartTime).toISOString(),
   });
-});
+};
+app.get("/health", healthHandler);
+app.get("/api/health", healthHandler);
 
 app.use("/api/auth", authRoute);
 app.use("/api/my/user", myUserRoute);
