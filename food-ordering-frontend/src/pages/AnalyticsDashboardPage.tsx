@@ -102,7 +102,7 @@ const AnalyticsDashboardPage = () => {
               Business Insights Dashboard
             </h1>
             <p className="text-lg text-gray-600">
-              Business insights and performance metrics
+              Business insights and key data
             </p>
           </div>
           <div className="flex items-center gap-4">

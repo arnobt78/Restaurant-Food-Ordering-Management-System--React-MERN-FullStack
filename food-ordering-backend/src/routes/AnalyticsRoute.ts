@@ -1,5 +1,5 @@
 import express from "express";
-import { jwtCheck, jwtParse } from "../middleware/auth";
+import verifyToken from "../middleware/auth";
 import AnalyticsController from "../controllers/AnalyticsController";
 import Order from "../models/order";
 import Restaurant from "../models/restaurant";
@@ -7,7 +7,7 @@ import Restaurant from "../models/restaurant";
 const router = express.Router();
 
 // /api/business-insights
-router.get("/", jwtCheck, jwtParse, AnalyticsController.getAnalyticsData);
+router.get("/", verifyToken, AnalyticsController.getAnalyticsData);
 
 // Development endpoint for testing (remove in production)
 router.get("/test", AnalyticsController.getAnalyticsData);

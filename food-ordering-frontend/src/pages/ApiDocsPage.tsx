@@ -201,7 +201,7 @@ const ApiDocsPage = () => {
     {
       method: "GET",
       path: "/api/business-insights",
-      description: "Get business analytics data",
+      description: "Get business insights data",
       auth: true,
       params: [
         {
@@ -216,7 +216,7 @@ const ApiDocsPage = () => {
     {
       method: "GET",
       path: "/api/business-insights/test",
-      description: "Get business analytics data (unauthenticated)",
+      description: "Get business insights data (unauthenticated)",
       auth: false,
       params: [
         {
@@ -328,7 +328,7 @@ const ApiDocsPage = () => {
           <TabsTrigger value="restaurants">Restaurants</TabsTrigger>
           <TabsTrigger value="orders">Orders</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="business-insights">Business Insights</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-6">
@@ -765,7 +765,7 @@ const ApiDocsPage = () => {
             ))}
         </TabsContent>
 
-        <TabsContent value="analytics" className="space-y-6">
+        <TabsContent value="business-insights" className="space-y-6">
           {endpoints
             .filter(
               (e) =>

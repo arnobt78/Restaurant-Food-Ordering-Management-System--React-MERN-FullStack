@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import HomePage from "./pages/HomePage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
+import SignInPage from "./pages/SignInPage";
+import RegisterPage from "./pages/RegisterPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import ManageRestaurantPage from "./pages/ManageRestaurantPage";
@@ -24,7 +26,23 @@ const AppRoutes = () => {
           </Layout>
         }
       />
-      <Route path="/auth-callback" element={<AuthCallbackPage />} />
+      <Route
+        path="/sign-in"
+        element={
+          <Layout showHero={false}>
+            <SignInPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <Layout showHero={false}>
+            <RegisterPage />
+          </Layout>
+        }
+      />
+      <Route path="/auth/callback" element={<AuthCallbackPage />} />
       <Route
         path="/search/:city"
         element={
@@ -91,7 +109,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/performance"
+          path="/optimization"
           element={
             <Layout>
               <PerformancePage />

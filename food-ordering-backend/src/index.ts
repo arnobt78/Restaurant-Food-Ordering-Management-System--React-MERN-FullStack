@@ -1,17 +1,18 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
 import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoute";
+import authRoute from "./routes/auth";
 import { v2 as cloudinary } from "cloudinary";
 import myRestaurantRoute from "./routes/MyRestaurantRoute";
 import restaurantRoute from "./routes/RestaurantRoute";
 import orderRoute from "./routes/OrderRoute";
 import analyticsRoute from "./routes/AnalyticsRoute";
 
-mongoose
-  .connect(process.env.MONGODB_URI as string)
-  .then(() => console.log("Connected to database!"));
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGODB_CONNECTION_STRING;
+mongoose.connect(MONGODB_URI as string).then(() => console.log("Connected to database!"));
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,19 +28,20 @@ const serverStartTime = Date.now();
 app.use(
   cors({
     origin: [
+      process.env.FRONTEND_URL,
       "http://localhost:5173",
       "http://localhost:3000",
       "https://mern-food-ordering.netlify.app",
       "https://mern-food-ordering-hnql.onrender.com",
-    ],
+    ].filter((o): o is string => Boolean(o)),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie", "X-Requested-With"],
   })
 );
 
+app.use(cookieParser());
 app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
-
 app.use(express.json());
 
 // Root route for Render deployment
@@ -59,6 +61,7 @@ app.get("/health", async (req: Request, res: Response) => {
   });
 });
 
+app.use("/api/auth", authRoute);
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/restaurant", myRestaurantRoute);
 app.use("/api/restaurant", restaurantRoute);

@@ -1,81 +1,25 @@
 import { User } from "@/types";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { axiosInstance } from "@/lib/api-client";
 
 export const useGetMyUser = () => {
-  const { getAccessTokenSilently } = useAuth0();
-
   const getMyUserRequest = async (): Promise<User> => {
-    const accessToken = await getAccessTokenSilently();
-
-    const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch user");
-    }
-
-    return response.json();
+    const res = await axiosInstance.get("/api/my/user");
+    return res.data;
   };
 
-  const {
-    data: currentUser,
-    isLoading,
-    error,
-  } = useQuery("fetchCurrentUser", getMyUserRequest);
+  const { data: currentUser, isLoading, error } = useQuery(
+    "fetchCurrentUser",
+    getMyUserRequest,
+    { enabled: !!localStorage.getItem("session_id") }
+  );
 
   if (error) {
-    toast.error(error.toString());
+    toast.error("Failed to fetch user");
   }
 
   return { currentUser, isLoading };
-};
-
-type CreateUserRequest = {
-  auth0Id: string;
-  email: string;
-};
-
-export const useCreateMyUser = () => {
-  const { getAccessTokenSilently } = useAuth0();
-
-  const createMyUserRequest = async (user: CreateUserRequest) => {
-    const accessToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to create user");
-    }
-  };
-
-  const {
-    mutateAsync: createUser,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMutation(createMyUserRequest);
-
-  return {
-    createUser,
-    isLoading,
-    isError,
-    isSuccess,
-  };
 };
 
 type UpdateMyUserRequest = {
@@ -86,41 +30,18 @@ type UpdateMyUserRequest = {
 };
 
 export const useUpdateMyUser = () => {
-  const { getAccessTokenSilently } = useAuth0();
-
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
-    const accessToken = await getAccessTokenSilently();
-
-    const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update user");
-    }
-
-    return response.json();
+    const res = await axiosInstance.put("/api/my/user", formData);
+    return res.data;
   };
 
-  const {
-    mutateAsync: updateUser,
-    isLoading,
-    isSuccess,
-    error,
-    reset,
-  } = useMutation(updateMyUserRequest);
+  const { mutateAsync: updateUser, isLoading, isSuccess, error, reset } = useMutation(
+    updateMyUserRequest
+  );
 
-  if (isSuccess) {
-    toast.success("User profile updated!");
-  }
-
+  if (isSuccess) toast.success("User profile updated!");
   if (error) {
-    toast.error(error.toString());
+    toast.error((error as Error).toString());
     reset();
   }
 

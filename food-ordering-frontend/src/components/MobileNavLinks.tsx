@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useAuth0 } from "@auth0/auth0-react";
+import * as authApi from "@/api/authApi";
+import { useQueryClient } from "react-query";
 
 const MobileNavLinks = () => {
-  const { logout } = useAuth0();
-  const handleLogout = () => {
+  const queryClient = useQueryClient();
+  const handleLogout = async () => {
     Object.keys(sessionStorage).forEach((key) => {
       if (key.startsWith("cartItems-")) sessionStorage.removeItem(key);
     });
-    logout();
+    await authApi.signOut();
+    queryClient.invalidateQueries("validateToken");
+    window.location.href = "/";
   };
   return (
     <>
@@ -28,13 +31,13 @@ const MobileNavLinks = () => {
         to="/business-insights"
         className="flex bg-white items-center font-bold hover:text-orange-500"
       >
-        Analytics
+        Business Insights
       </Link>
       <Link
-        to="/performance"
+        to="/optimization"
         className="flex bg-white items-center font-bold hover:text-orange-500"
       >
-        Performance
+        Optimization
       </Link>
       <Link
         to="/order-status"

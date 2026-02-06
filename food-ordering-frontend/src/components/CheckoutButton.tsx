@@ -1,5 +1,4 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
@@ -7,6 +6,7 @@ import UserProfileForm, {
   UserFormData,
 } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
+import { useAppContext } from "@/contexts/AppContext";
 
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
@@ -15,33 +15,21 @@ type Props = {
 };
 
 const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
-  const {
-    isAuthenticated,
-    isLoading: isAuthLoading,
-    loginWithRedirect,
-  } = useAuth0();
-
+  const { isLoggedIn } = useAppContext();
   const { pathname } = useLocation();
-
   const { currentUser, isLoading: isGetUserLoading } = useGetMyUser();
 
-  const onLogin = async () => {
-    await loginWithRedirect({
-      appState: {
-        returnTo: pathname,
-      },
-    });
-  };
-
-  if (!isAuthenticated) {
+  if (!isLoggedIn) {
     return (
-      <Button onClick={onLogin} className="bg-orange-500 flex-1">
-        Log in to check out
+      <Button asChild className="bg-orange-500 flex-1">
+        <Link to="/sign-in" state={{ from: { pathname } }}>
+          Log in to check out
+        </Link>
       </Button>
     );
   }
 
-  if (isAuthLoading || !currentUser || isLoading) {
+  if (!currentUser || isLoading) {
     return <LoadingButton />;
   }
 

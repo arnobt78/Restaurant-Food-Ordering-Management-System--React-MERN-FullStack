@@ -8,11 +8,13 @@ import {
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
+import { useAppContext } from "@/contexts/AppContext";
 import MobileNavLinks from "./MobileNavLinks";
 
 const MobileNav = () => {
-  const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  const { isLoggedIn } = useAppContext();
+  const email = localStorage.getItem("user_email");
 
   return (
     <Sheet>
@@ -21,26 +23,25 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
-          {isAuthenticated ? (
+          {isLoggedIn ? (
             <span className="flex items-center font-bold gap-2">
               <CircleUserRound className="text-orange-500" />
-              {user?.email}
+              {email}
             </span>
           ) : (
-            <span> Welcome to BigHungers.com!</span>
+            <span>Welcome to BigHungers.com!</span>
           )}
         </SheetTitle>
         <Separator />
         <SheetDescription className="flex flex-col gap-4">
-          {isAuthenticated ? (
+          {isLoggedIn ? (
             <MobileNavLinks />
           ) : (
-            <Button
-              onClick={() => loginWithRedirect()}
-              className="flex-1 font-bold bg-orange-500"
-            >
-              Log In
-            </Button>
+            <Link to="/sign-in">
+              <Button className="flex-1 font-bold bg-orange-500 w-full">
+                Log In
+              </Button>
+            </Link>
           )}
         </SheetDescription>
       </SheetContent>

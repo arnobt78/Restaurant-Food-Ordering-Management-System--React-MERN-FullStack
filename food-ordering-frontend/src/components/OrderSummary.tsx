@@ -168,7 +168,7 @@ Name: John Doe`;
                   </div>
                 </div>
                 <p className="text-xs text-yellow-700 mt-1">
-                  Complete checkout to see order status, analytics, and other
+                  Complete checkout to see order status, insights, and other
                   interactive features!
                 </p>
               </div>
