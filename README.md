@@ -1,5 +1,17 @@
 # Restaurant Food Ordering Management System - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)
 
+A comprehensive, modern food ordering platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time order management, payment processing, analytics dashboard, and advanced search capabilities.
+
+- **Frontend-Live:** [https://food-mern-ordering.vercel.app/](https://food-mern-ordering.vercel.app/)
+- **Backend-Live:** [https://food-ordering-backend.duckdns.org](https://food-ordering-backend.duckdns.org)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Food Ordering Platform](https://img.shields.io/badge/React-18.2.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18.0.0-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-6.3.0-green)
+![Stripe](https://img.shields.io/badge/Stripe-14.15.0-purple)
+
 ![Screenshot 2025-09-01 at 15 44 06](https://github.com/user-attachments/assets/ca1e8188-6070-4742-893b-c4e75f27286e)
 ![Screenshot 2025-09-01 at 15 45 22](https://github.com/user-attachments/assets/e07cdafd-b592-4232-9df7-2eaeaa0ae1b4)
 ![Screenshot 2025-09-01 at 15 45 47](https://github.com/user-attachments/assets/1d76489d-8c83-47d8-9482-06c737e7c0dd)
@@ -13,22 +25,6 @@
 ![Screenshot 2025-09-01 at 15 49 54](https://github.com/user-attachments/assets/5d726738-c14b-4eac-8d30-0ee8fbf02f10)
 ![Screenshot 2025-09-01 at 15 50 29](https://github.com/user-attachments/assets/05c0589d-3603-4da1-8584-57f29a553be3)
 ![Screenshot 2025-09-01 at 15 50 42](https://github.com/user-attachments/assets/7a024ad6-2cb6-4dea-a5b1-df85fa076d5d)
-
----
-
-A comprehensive, modern food ordering platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time order management, payment processing, analytics dashboard, and advanced search capabilities.
-
-- **Frontend-Live:** [https://mern-food-ordering.netlify.app/](https://mern-food-ordering.netlify.app/)
-- **Backend-Live:** [https://mern-food-ordering-hnql.onrender.com](https://mern-food-ordering-hnql.onrender.com)
-
-![Food Ordering Platform](https://img.shields.io/badge/React-18.2.0-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue)
-![Node.js](https://img.shields.io/badge/Node.js-18.0.0-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-6.3.0-green)
-![Stripe](https://img.shields.io/badge/Stripe-14.15.0-purple)
-![Auth0](https://img.shields.io/badge/Auth0-2.2.4-orange)
-
----
 
 ## 📋 Table of Contents
 
@@ -176,23 +172,23 @@ git clone https://github.com/yourusername/food-ordering.git
 cd food-ordering
 ```
 
-2. **Install backend dependencies**
+1. **Install backend dependencies**
 
 ```bash
 cd food-ordering-backend
 npm install
 ```
 
-3. **Install frontend dependencies**
+1. **Install frontend dependencies**
 
 ```bash
 cd ../food-ordering-frontend
 npm install
 ```
 
-4. **Set up environment variables** (see Environment Variables section)
+1. **Set up environment variables** (see Environment Variables section)
 
-5. **Start the development servers**
+2. **Start the development servers**
 
 Backend:
 
@@ -570,7 +566,7 @@ cd food-ordering-backend
 npm run build
 ````
 
-2. **Deploy to Railway/Render**
+1. **Deploy to Railway/Render**
 
    ```bash
 
@@ -608,19 +604,19 @@ STRIPE_API_KEY="sk_live_your-production-key"
 git checkout -b feature/amazing-feature
 ```
 
-3. **Commit your changes**
+1. **Commit your changes**
 
 ```bash
 git commit -m 'Add amazing feature'
 ```
 
-4. **Push to the branch**
+1. **Push to the branch**
 
 ```bash
 git push origin feature/amazing-feature
 ```
 
-5. **Open a Pull Request**
+1. **Open a Pull Request**
 
 ### Development Guidelines
 
@@ -676,14 +672,12 @@ Food Delivery, Restaurant Management, Order Processing, Payment Integration, Rea
 
 ---
 
-## 🎉 Happy Coding! 🎉
+## Happy Coding! 🎉
 
-Feel free to use this project repository and extend this project further!
+This is an **open-source project** - feel free to use, enhance, and extend this project further!
 
-If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/).
+If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/).
 
 **Enjoy building and learning!** 🚀
 
 Thank you! 😊
-
----
