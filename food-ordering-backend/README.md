@@ -2,10 +2,10 @@
 
 ---
 
-BigHungers backend is a modern, production-ready REST API server for food ordering platforms. Built with Node.js, Express, TypeScript, and MongoDB, it powers user authentication (Auth0), restaurant and menu management, order processing, Stripe payments, and real-time order tracking. The backend is modular, secure, and easily extensible—designed for seamless integration with any frontend and scalable for real-world deployments.
+A production-ready, scalable backend API for the Restaurant Food Ordering Management System. Built with Node.js, Express.js, TypeScript, and MongoDB, featuring secure authentication, real-time order management, and third-party integrations.
 
-- **Frontend-Live:** [https://mern-food-ordering.netlify.app/](https://mern-food-ordering.netlify.app/)
-- **Backend-Live:** [https://mern-food-ordering-hnql.onrender.com](https://mern-food-ordering-hnql.onrender.com)
+- **Frontend-Live:** [https://food-mern-ordering.vercel.app/](https://food-mern-ordering.vercel.app/)
+- **Backend-Live:** [https://food-ordering-backend.duckdns.org](https://food-ordering-backend.duckdns.org)
 
 ---
 
@@ -181,7 +181,7 @@ router.post(
   validateMyRestaurantRequest,
   jwtCheck,
   jwtParse,
-  MyRestaurantController.createMyRestaurant
+  MyRestaurantController.createMyRestaurant,
 );
 ```
 
@@ -192,7 +192,7 @@ router.post(
   "/checkout/create-checkout-session",
   jwtCheck,
   jwtParse,
-  OrderController.createCheckoutSession
+  OrderController.createCheckoutSession,
 );
 ```
 
