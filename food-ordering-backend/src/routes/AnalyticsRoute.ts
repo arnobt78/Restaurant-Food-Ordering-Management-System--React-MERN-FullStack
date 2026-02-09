@@ -9,6 +9,9 @@ const router = express.Router();
 // /api/business-insights
 router.get("/", verifyToken, AnalyticsController.getAnalyticsData);
 
+// Public endpoint – analytics data for both logged-in and anonymous users
+router.get("/public", AnalyticsController.getAnalyticsData);
+
 // Development endpoint for testing (remove in production)
 router.get("/test", AnalyticsController.getAnalyticsData);
 

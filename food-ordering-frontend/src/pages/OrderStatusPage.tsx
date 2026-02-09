@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { toast } from "sonner";
 import {
   ChevronUp,
@@ -21,15 +21,65 @@ import {
   CheckCircle,
   ChefHat,
   Truck,
+  LogIn,
+  UserCircle,
+  CreditCard,
 } from "lucide-react";
+import { useAppContext } from "@/contexts/AppContext";
 
 const OrderStatusPage = () => {
+  const { isLoggedIn } = useAppContext();
   const { orders, isLoading } = useGetMyOrders();
   const [searchParams, setSearchParams] = useSearchParams();
   // Group visible orders by date with expand/collapse
   const [expandedDates, setExpandedDates] = useState<{
     [date: string]: boolean;
   }>({});
+
+  // Not logged in – show friendly login prompt
+  if (!isLoggedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px] px-4">
+        <Card className="max-w-lg w-full">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-full bg-orange-100">
+                <Package className="h-8 w-8 text-orange-600" />
+              </div>
+              <div>
+                <CardTitle className="text-xl">Order Status</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Track your orders and delivery status
+                </p>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              To view your order status, please sign in with your test credentials
+              or your personal account.
+            </p>
+            <div className="flex flex-col gap-2 text-sm">
+              <div className="flex items-center gap-2">
+                <UserCircle className="h-4 w-4 text-orange-500" />
+                <span>Test credentials: test@example.com / your password</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-orange-500" />
+                <span>Or use your own registered account</span>
+              </div>
+            </div>
+            <Link to="/sign-in">
+              <Button className="w-full font-bold bg-orange-500 hover:bg-orange-600">
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In to View Orders
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   // Check for successful payment and show toast notification
   useEffect(() => {

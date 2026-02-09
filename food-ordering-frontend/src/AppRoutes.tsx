@@ -75,15 +75,31 @@ const AppRoutes = () => {
           </Layout>
         }
       />
+      <Route
+        path="/order-status"
+        element={
+          <Layout showHero={false}>
+            <OrderStatusPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/business-insights"
+        element={
+          <Layout showHero={false}>
+            <AnalyticsDashboardPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/optimization"
+        element={
+          <Layout showHero={false}>
+            <PerformancePage />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedRoute />}>
-        <Route
-          path="/order-status"
-          element={
-            <Layout>
-              <OrderStatusPage />
-            </Layout>
-          }
-        />
         <Route
           path="/user-profile"
           element={
@@ -97,22 +113,6 @@ const AppRoutes = () => {
           element={
             <Layout>
               <ManageRestaurantPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/business-insights"
-          element={
-            <Layout>
-              <AnalyticsDashboardPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/optimization"
-          element={
-            <Layout>
-              <PerformancePage />
             </Layout>
           }
         />

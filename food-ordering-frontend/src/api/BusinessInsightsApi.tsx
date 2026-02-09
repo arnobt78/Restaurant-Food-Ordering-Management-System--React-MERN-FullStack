@@ -21,16 +21,18 @@ export interface AnalyticsData {
 }
 
 export const useGetAnalytics = (timeRange: string = "30d") => {
+  const isLoggedIn = !!localStorage.getItem("session_id");
   return useQuery(
     ["business-insights", timeRange],
     async (): Promise<AnalyticsData> => {
-      const res = await axiosInstance.get(
-        `/api/business-insights?timeRange=${timeRange}`
-      );
+      const endpoint = isLoggedIn
+        ? `/api/business-insights?timeRange=${timeRange}`
+        : `/api/business-insights/public?timeRange=${timeRange}`;
+      const res = await axiosInstance.get(endpoint);
       return res.data;
     },
     {
-      enabled: !!localStorage.getItem("session_id"),
+      enabled: true,
       staleTime: 5 * 60 * 1000,
       refetchInterval: 30 * 1000,
     }
