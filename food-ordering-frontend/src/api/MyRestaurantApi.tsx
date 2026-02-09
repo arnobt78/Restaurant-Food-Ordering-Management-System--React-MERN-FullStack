@@ -9,9 +9,9 @@ import {
 } from "@/components/OrderStatusToast";
 
 export const useGetMyRestaurant = () => {
-  const getMyRestaurantRequest = async (): Promise<Restaurant> => {
+  const getMyRestaurantRequest = async (): Promise<Restaurant | null> => {
     const res = await axiosInstance.get("/api/my/restaurant");
-    return res.data;
+    return res.data ?? null;
   };
 
   const { data: restaurant, isLoading } = useQuery(
@@ -20,7 +20,7 @@ export const useGetMyRestaurant = () => {
     { enabled: !!localStorage.getItem("session_id") }
   );
 
-  return { restaurant, isLoading };
+  return { restaurant: restaurant ?? undefined, isLoading };
 };
 
 export const useCreateMyRestaurant = () => {
@@ -71,24 +71,26 @@ export const useUpdateMyRestaurant = () => {
   return { updateRestaurant, isLoading };
 };
 
-export const useGetMyRestaurantOrders = () => {
+export const useGetMyRestaurantOrders = (
+  hasRestaurant: boolean
+) => {
   const getMyRestaurantOrdersRequest = async (): Promise<Order[]> => {
     const res = await axiosInstance.get("/api/my/restaurant/order");
-    return res.data;
+    return res.data ?? [];
   };
 
   const { data: orders, isLoading, isFetching, refetch } = useQuery(
     "fetchMyRestaurantOrders",
     getMyRestaurantOrdersRequest,
     {
-      enabled: !!localStorage.getItem("session_id"),
-      refetchInterval: 5000,
-      refetchOnWindowFocus: true,
+      enabled: !!localStorage.getItem("session_id") && hasRestaurant,
+      refetchInterval: hasRestaurant ? 5000 : false,
+      refetchOnWindowFocus: hasRestaurant,
       staleTime: 0,
     }
   );
 
-  return { orders, isLoading, isFetching, refetch };
+  return { orders: orders ?? [], isLoading, isFetching, refetch };
 };
 
 type UpdateOrderStatusRequest = { orderId: string; status: string };

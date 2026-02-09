@@ -7,10 +7,8 @@ import Order from "../models/order";
 const getMyRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
-    if (!restaurant) {
-      return res.status(404).json({ message: "restaurant not found" });
-    }
-    res.json(restaurant);
+    // Return null when no restaurant (allows frontend to show create form)
+    res.json(restaurant ?? null);
   } catch (error) {
     console.log("error", error);
     res.status(500).json({ message: "Error fetching restaurant" });
@@ -101,7 +99,7 @@ const getMyRestaurantOrders = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
     if (!restaurant) {
-      return res.status(404).json({ message: "restaurant not found" });
+      return res.json([]);
     }
 
     // Return all orders for this restaurant, including 'placed' (unpaid) orders

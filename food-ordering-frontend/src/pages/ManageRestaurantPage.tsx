@@ -24,7 +24,7 @@ const ManageRestaurantPage = () => {
     isLoading: ordersLoading,
     isFetching: ordersFetching,
     refetch,
-  } = useGetMyRestaurantOrders();
+  } = useGetMyRestaurantOrders(!!restaurant);
   const queryClient = useQueryClient();
 
   const isEditing = !!restaurant;
@@ -34,20 +34,6 @@ const ManageRestaurantPage = () => {
     visibleStatuses.includes(order.status)
   );
   const placedOrders = orders?.filter((order) => order.status === "placed");
-
-  // Debug logging to see what orders we're getting
-  console.log("All orders:", orders);
-  console.log("Visible orders (paid+):", visibleOrders);
-  console.log("Placed orders:", placedOrders);
-  console.log(
-    "Order statuses:",
-    orders?.map((order) => ({
-      id: order._id,
-      status: order.status,
-      customer: order.deliveryDetails.name,
-      date: order.createdAt,
-    }))
-  );
 
   const handleRefreshOrders = () => {
     queryClient.invalidateQueries("fetchMyRestaurantOrders");
