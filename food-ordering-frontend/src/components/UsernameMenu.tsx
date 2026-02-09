@@ -61,19 +61,31 @@ const UsernameMenu = () => {
           <p className="text-xs text-muted-foreground">{email}</p>
         </div>
         <Separator className="my-2" />
-        <DropdownMenuItem onClick={handleMenuClick} className="py-1 rounded-md">
-          <Link to="/manage-restaurant" className="font-bold hover:text-orange-500">
+        <DropdownMenuItem
+          onClick={handleMenuClick}
+          className="py-1.5 rounded-md"
+        >
+          <Link
+            to="/manage-restaurant"
+            className="font-bold hover:text-orange-500"
+          >
             Manage Restaurant
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleMenuClick} className="py-1 rounded-md">
+        <DropdownMenuItem
+          onClick={handleMenuClick}
+          className="py-1.5 rounded-md"
+        >
           <Link to="/user-profile" className="font-bold hover:text-orange-500">
             User Profile
           </Link>
         </DropdownMenuItem>
         <Separator className="my-2" />
-        <DropdownMenuItem className="py-1 rounded-md">
-          <Button onClick={handleLogout} className="w-full font-bold bg-orange-500 hover:bg-orange-600">
+        <DropdownMenuItem className="py-1.5 rounded-md">
+          <Button
+            onClick={handleLogout}
+            className="w-full font-bold bg-orange-500 hover:bg-orange-600"
+          >
             Log Out
           </Button>
         </DropdownMenuItem>
