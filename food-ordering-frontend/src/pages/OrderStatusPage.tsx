@@ -36,56 +36,10 @@ const OrderStatusPage = () => {
     [date: string]: boolean;
   }>({});
 
-  // Not logged in – show friendly login prompt
-  if (!isLoggedIn) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px] px-4">
-        <Card className="max-w-lg w-full">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-orange-100">
-                <Package className="h-8 w-8 text-orange-600" />
-              </div>
-              <div>
-                <CardTitle className="text-xl">Order Status</CardTitle>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Track your orders and delivery status
-                </p>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground">
-              To view your order status, please sign in with your test credentials
-              or your personal account.
-            </p>
-            <div className="flex flex-col gap-2 text-sm">
-              <div className="flex items-center gap-2">
-                <UserCircle className="h-4 w-4 text-orange-500" />
-                <span>Test credentials: test@example.com / your password</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4 text-orange-500" />
-                <span>Or use your own registered account</span>
-              </div>
-            </div>
-            <Link to="/sign-in">
-              <Button className="w-full font-bold bg-orange-500 hover:bg-orange-600">
-                <LogIn className="h-4 w-4 mr-2" />
-                Sign In to View Orders
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  // Check for successful payment and show toast notification
+  // Check for successful payment and show toast notification (must run before any early return)
   useEffect(() => {
     const success = searchParams.get("success");
     if (success === "true") {
-      // Show success toast notification
       toast.success(
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-full bg-green-100 text-green-800">
@@ -107,15 +61,58 @@ const OrderStatusPage = () => {
             borderRadius: "8px",
             boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
           },
-        }
+        },
       );
-
-      // Remove the success parameter from URL to prevent showing toast again on refresh
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.delete("success");
       setSearchParams(newSearchParams, { replace: true });
     }
   }, [searchParams, setSearchParams]);
+
+  // Not logged in – show friendly login prompt
+  if (!isLoggedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px] px-4">
+        <Card className="max-w-lg w-full">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-full bg-orange-100">
+                <Package className="h-8 w-8 text-orange-600" />
+              </div>
+              <div>
+                <CardTitle className="text-xl">Order Status</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Track your orders and delivery status
+                </p>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              To view your order status, please sign in with your test
+              credentials or your personal account.
+            </p>
+            <div className="flex flex-col gap-2 text-sm mb-4">
+              <div className="flex items-center gap-2">
+                <UserCircle className="h-4 w-4 text-orange-500" />
+                <span>Test credentials: test@user.com / 12345678</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-orange-500" />
+                <span>Or use your own registered account</span>
+              </div>
+            </div>
+            <Link to="/sign-in">
+              <Button className="w-full font-bold bg-orange-500 hover:bg-orange-600">
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In to View Orders
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   // Enhanced loading state with skeleton
   if (isLoading) {
@@ -183,7 +180,7 @@ const OrderStatusPage = () => {
     "delivered",
   ];
   const visibleOrders = orders?.filter((order) =>
-    visibleStatuses.includes(order.status)
+    visibleStatuses.includes(order.status),
   );
 
   // Enhanced empty state
@@ -265,7 +262,7 @@ const OrderStatusPage = () => {
         visibleOrders.forEach((order) => {
           const d = new Date(order.createdAt);
           const dateStr = `${d.getFullYear()}-${String(
-            d.getMonth() + 1
+            d.getMonth() + 1,
           ).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
           if (!grouped[dateStr]) grouped[dateStr] = [];
           grouped[dateStr].push(order);
@@ -320,7 +317,7 @@ const OrderStatusPage = () => {
                         .sort(
                           (a, b) =>
                             new Date(b.createdAt).getTime() -
-                            new Date(a.createdAt).getTime()
+                            new Date(a.createdAt).getTime(),
                         )
                         .map((order) => (
                           <Card
@@ -347,7 +344,7 @@ const OrderStatusPage = () => {
                                 </div>
                                 <Badge
                                   className={`${getStatusColor(
-                                    order.status
+                                    order.status,
                                   )} flex items-center gap-1`}
                                 >
                                   {getStatusIcon(order.status)}
@@ -355,12 +352,12 @@ const OrderStatusPage = () => {
                                     {order.status === "placed"
                                       ? "Awaiting Payment"
                                       : order.status === "paid"
-                                      ? "Payment Confirmed"
-                                      : order.status === "inProgress"
-                                      ? "In Progress"
-                                      : order.status === "outForDelivery"
-                                      ? "Out for Delivery"
-                                      : "Delivered"}
+                                        ? "Payment Confirmed"
+                                        : order.status === "inProgress"
+                                          ? "In Progress"
+                                          : order.status === "outForDelivery"
+                                            ? "Out for Delivery"
+                                            : "Delivered"}
                                   </span>
                                 </Badge>
                               </div>

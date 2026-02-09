@@ -35,6 +35,6 @@ export const useGetAnalytics = (timeRange: string = "30d") => {
       enabled: true,
       staleTime: 5 * 60 * 1000,
       refetchInterval: 30 * 1000,
-    }
+    },
   );
 };
