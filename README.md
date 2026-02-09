@@ -3,7 +3,7 @@
 A comprehensive, modern food ordering platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time order management, payment processing, analytics dashboard, and advanced search capabilities.
 
 - **Frontend-Live:** [https://food-mern-ordering.vercel.app/](https://food-mern-ordering.vercel.app/)
-- **Backend-Live:** [https://food-ordering-backend.duckdns.org](https://food-ordering-backend.duckdns.org)
+- **Backend-Live:** [https://food-ordering-backend.arnobmahmud.com](https://food-ordering-backend.arnobmahmud.com)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Food Ordering Platform](https://img.shields.io/badge/React-18.2.0-blue)

@@ -5,7 +5,7 @@
 A modern, responsive, and feature-rich React application for food ordering. It connects seamlessly to the backend API, providing users with a smooth experience for browsing restaurants, searching by city/cuisine, managing carts, placing orders, and tracking order status in real time. Built with Vite, React, TypeScript, Tailwind CSS, shadcn/ui, React Query, it is modular, scalable, and easy to extend or reuse in other projects.
 
 - **Frontend-Live:** [https://food-mern-ordering.vercel.app/](https://food-mern-ordering.vercel.app/)
-- **Backend-Live:** [https://food-ordering-backend.duckdns.org](https://food-ordering-backend.duckdns.org)
+- **Backend-Live:** [https://food-ordering-backend.arnobmahmud.com](https://food-ordering-backend.arnobmahmud.com)
 
 ---
 

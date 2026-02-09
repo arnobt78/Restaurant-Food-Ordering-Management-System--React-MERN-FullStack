@@ -5,7 +5,7 @@
 A production-ready, scalable backend API for the Restaurant Food Ordering Management System. Built with Node.js, Express.js, TypeScript, and MongoDB, featuring secure authentication, real-time order management, and third-party integrations.
 
 - **Frontend-Live:** [https://food-mern-ordering.vercel.app/](https://food-mern-ordering.vercel.app/)
-- **Backend-Live:** [https://food-ordering-backend.duckdns.org](https://food-ordering-backend.duckdns.org)
+- **Backend-Live:** [https://food-ordering-backend.arnobmahmud.com](https://food-ordering-backend.arnobmahmud.com)
 
 ---
 
