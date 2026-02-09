@@ -137,7 +137,7 @@ const OrderItemCard = ({ order, showStatusSelector = true }: Props) => {
           <div className="flex items-center gap-2 text-sm">
             <DollarSign className="h-4 w-4 text-muted-foreground" />
             <span className="font-medium">
-              {formatCurrency(order.totalAmount)}
+              {formatCurrency(order.totalAmount ?? 0)}
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm">

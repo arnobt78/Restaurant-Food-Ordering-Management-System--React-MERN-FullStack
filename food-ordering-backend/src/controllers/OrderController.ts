@@ -123,16 +123,16 @@ const createCheckoutSession = async (req: Request, res: Response) => {
       restaurant.menuItems
     );
 
-    const subtotalInPence = checkoutSessionRequest.cartItems.reduce(
-      (sum, cartItem) => {
-        const menuItem = restaurant.menuItems.find(
-          (m) => m._id.toString() === cartItem.menuItemId.toString()
-        );
-        return sum + (menuItem?.price ?? 0) * parseInt(cartItem.quantity, 10);
-      },
-      0
-    );
-    const totalAmount = subtotalInPence + restaurant.deliveryPrice;
+    const menuItems = restaurant.menuItems as Array<{ _id: unknown; price: number }>;
+    let subtotalInPence = 0;
+    for (const cartItem of checkoutSessionRequest.cartItems) {
+      const menuItem = menuItems.find(
+        (m) => String(m._id) === String(cartItem.menuItemId)
+      );
+      const price = menuItem ? menuItem.price : 0;
+      subtotalInPence += price * parseInt(String(cartItem.quantity), 10);
+    }
+    const totalAmount = subtotalInPence + Number(restaurant.deliveryPrice);
     newOrder.totalAmount = totalAmount;
 
     const session = await createSession(
