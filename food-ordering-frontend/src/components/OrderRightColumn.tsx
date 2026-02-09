@@ -9,7 +9,22 @@ type Props = {
 };
 
 const OrderRightColumn = ({ order }: Props) => {
-  // Helper function to format currency
+  // Compute subtotal/total from cartItems when totalAmount is missing (e.g. placed order before webhook)
+  const computedSubtotal =
+    typeof order.totalAmount === "number" && !Number.isNaN(order.totalAmount)
+      ? order.totalAmount - order.restaurant.deliveryPrice
+      : order.cartItems.reduce((sum, item) => {
+          const menuItem = order.restaurant.menuItems?.find(
+            (m) => m._id === item.menuItemId
+          );
+          const price = menuItem?.price ?? 0;
+          return sum + price * parseInt(String(item.quantity), 10);
+        }, 0);
+  const computedTotal =
+    typeof order.totalAmount === "number" && !Number.isNaN(order.totalAmount)
+      ? order.totalAmount
+      : computedSubtotal + order.restaurant.deliveryPrice;
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-GB", {
       style: "currency",
@@ -122,9 +137,7 @@ const OrderRightColumn = ({ order }: Props) => {
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">Subtotal</span>
               <span className="font-medium">
-                {formatCurrency(
-                  order.totalAmount - order.restaurant.deliveryPrice
-                )}
+                {formatCurrency(computedSubtotal)}
               </span>
             </div>
             <div className="flex justify-between items-center">
@@ -136,7 +149,7 @@ const OrderRightColumn = ({ order }: Props) => {
             <Separator />
             <div className="flex justify-between items-center text-lg font-semibold">
               <span>Total</span>
-              <span>{formatCurrency(order.totalAmount)}</span>
+              <span>{formatCurrency(computedTotal)}</span>
             </div>
           </div>
         </CardContent>

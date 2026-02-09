@@ -49,7 +49,7 @@ export type Order = {
     city: string;
     email: string;
   };
-  totalAmount: number;
+  totalAmount?: number;
   status: OrderStatus;
   createdAt: string;
   restaurantId: string;

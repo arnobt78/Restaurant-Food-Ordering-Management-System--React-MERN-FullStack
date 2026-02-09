@@ -123,6 +123,18 @@ const createCheckoutSession = async (req: Request, res: Response) => {
       restaurant.menuItems
     );
 
+    const subtotalInPence = checkoutSessionRequest.cartItems.reduce(
+      (sum, cartItem) => {
+        const menuItem = restaurant.menuItems.find(
+          (m) => m._id.toString() === cartItem.menuItemId.toString()
+        );
+        return sum + (menuItem?.price ?? 0) * parseInt(cartItem.quantity, 10);
+      },
+      0
+    );
+    const totalAmount = subtotalInPence + restaurant.deliveryPrice;
+    newOrder.totalAmount = totalAmount;
+
     const session = await createSession(
       lineItems,
       newOrder._id.toString(),

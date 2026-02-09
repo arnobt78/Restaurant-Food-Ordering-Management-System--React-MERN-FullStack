@@ -21,16 +21,15 @@ const OrderSummary = ({
 }: Props) => {
   const [isCopied, setIsCopied] = useState(false);
 
-  const getTotalCost = () => {
-    const totalInPence = cartItems.reduce(
-      (total, cartItem) => total + cartItem.price * cartItem.quantity,
-      0
-    );
+  const subtotalPence = cartItems.reduce(
+    (total, cartItem) => total + cartItem.price * cartItem.quantity,
+    0
+  );
+  const totalPence =
+    cartItems.length > 0 ? subtotalPence + restaurant.deliveryPrice : 0;
 
-    const totalWithDelivery = totalInPence + restaurant.deliveryPrice;
-
-    return (totalWithDelivery / 100).toFixed(2);
-  };
+  const formatCurrency = (pence: number) =>
+    `£${(pence / 100).toFixed(2)}`;
 
   const copyCredentials = async () => {
     const credentials = `Email: test@example.com
@@ -53,11 +52,16 @@ Name: John Doe`;
       <CardHeader>
         <CardTitle className="text-2xl font-bold tracking-tight flex justify-between">
           <span>Your Order</span>
-          <span>£{getTotalCost()}</span>
+          <span>{formatCurrency(totalPence)}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
-        {cartItems.map((item) => (
+        {cartItems.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-4 text-center">
+            Your cart is empty. Add items from the menu to get started.
+          </p>
+        ) : (
+          cartItems.map((item) => (
           <div className="flex justify-between items-center" key={item._id}>
             <span className="flex items-center gap-2">
               {/* Quantity Counter */}
@@ -103,11 +107,21 @@ Name: John Doe`;
               £{((item.price * item.quantity) / 100).toFixed(2)}
             </span>
           </div>
-        ))}
+          ))
+        )}
         <Separator />
-        <div className="flex justify-between">
+        <div className="flex justify-between text-sm">
+          <span>Subtotal</span>
+          <span>{formatCurrency(subtotalPence)}</span>
+        </div>
+        <div className="flex justify-between text-sm">
           <span>Delivery</span>
-          <span>£{(restaurant.deliveryPrice / 100).toFixed(2)}</span>
+          <span>{formatCurrency(restaurant.deliveryPrice)}</span>
+        </div>
+        <Separator />
+        <div className="flex justify-between font-semibold">
+          <span>Total</span>
+          <span>{formatCurrency(totalPence)}</span>
         </div>
         <Separator />
 
