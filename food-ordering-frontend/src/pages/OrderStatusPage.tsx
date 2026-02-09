@@ -103,7 +103,7 @@ const OrderStatusPage = () => {
               </div>
             </div>
             <Link to="/sign-in">
-              <Button className="w-full font-bold bg-orange-500 hover:bg-orange-600">
+              <Button className="w-full font-bold bg-orange-500 hover:bg-orange-600 mt-4">
                 <LogIn className="h-4 w-4 mr-2" />
                 Sign In to View Orders
               </Button>
