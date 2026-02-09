@@ -63,7 +63,7 @@ const UsernameMenu = () => {
         <Separator className="my-2" />
         <DropdownMenuItem
           onClick={handleMenuClick}
-          className="py-1.5 rounded-md"
+          className="py-1.5 rounded-md cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
         >
           <Link
             to="/manage-restaurant"
@@ -74,14 +74,14 @@ const UsernameMenu = () => {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleMenuClick}
-          className="py-1.5 rounded-md"
+          className="py-1.5 rounded-md cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
         >
           <Link to="/user-profile" className="font-bold hover:text-orange-500">
             User Profile
           </Link>
         </DropdownMenuItem>
         <Separator className="my-2" />
-        <DropdownMenuItem className="py-1.5 rounded-md">
+        <DropdownMenuItem className="py-1.5 rounded-md cursor-pointer">
           <Button
             onClick={handleLogout}
             className="w-full font-bold bg-orange-500 hover:bg-orange-600"
