@@ -1,6 +1,4 @@
-# BigHungers Food Ordering Frontend - React, Express.js MERN Project
-
----
+# Restaurant Food Ordering Management System Frontend - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)
 
 A modern, responsive, and feature-rich React application for food ordering. It connects seamlessly to the backend API, providing users with a smooth experience for browsing restaurants, searching by city/cuisine, managing carts, placing orders, and tracking order status in real time. Built with Vite, React, TypeScript, Tailwind CSS, shadcn/ui, React Query, it is modular, scalable, and easy to extend or reuse in other projects.
 

@@ -1,6 +1,4 @@
-# BigHungers Food Ordering Backend - React, Express.js MERN Project
-
----
+# Restaurant Food Ordering Management System Backend - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)
 
 A production-ready, scalable backend API for the Restaurant Food Ordering Management System. Built with Node.js, Express.js, TypeScript, and MongoDB, featuring secure authentication, real-time order management, and third-party integrations.
 
@@ -26,7 +24,7 @@ A production-ready, scalable backend API for the Restaurant Food Ordering Manage
 
 ## Project Summary
 
-BigHungers is a robust, scalable backend for a modern food ordering platform. It provides RESTful APIs for user management, restaurant management, menu, order processing, and payment integration (Stripe). The backend is built with Node.js, Express, TypeScript, and MongoDB (Mongoose), and supports secure authentication via Auth0. It is designed for easy extension and integration with any frontend.
+A robust, scalable backend for a modern food ordering platform. It provides RESTful APIs for user management, restaurant management, menu, order processing, and payment integration (Stripe). The backend is built with Node.js, Express, TypeScript, and MongoDB (Mongoose), and supports secure authentication via Auth0. It is designed for easy extension and integration with any frontend.
 
 ---
 
