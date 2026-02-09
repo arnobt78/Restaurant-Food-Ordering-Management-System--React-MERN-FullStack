@@ -20,8 +20,11 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     enabled: hasStoredToken,
   });
 
+  // Logged in when: validation succeeded, OR we have token and validation failed (e.g. network), OR we have token and still loading (e.g. returning from Stripe redirect)
   const isLoggedIn =
-    (!isLoading && !isError && !!data) || (hasStoredToken && isError);
+    (!isLoading && !isError && !!data) ||
+    (hasStoredToken && isError) ||
+    (hasStoredToken && isLoading);
 
   return (
     <AppContext.Provider value={{ isLoggedIn }}>{children}</AppContext.Provider>

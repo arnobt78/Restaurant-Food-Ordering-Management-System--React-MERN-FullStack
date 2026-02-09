@@ -11,6 +11,7 @@ const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_WEBHOOK_SECRET as string;
 const getMyOrders = async (req: Request, res: Response) => {
   try {
     const activeStatuses = [
+      "placed",
       "paid",
       "inProgress",
       "outForDelivery",

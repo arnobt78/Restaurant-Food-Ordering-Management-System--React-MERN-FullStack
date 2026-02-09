@@ -83,10 +83,11 @@ const AnalyticsDashboardPage = () => {
   };
 
   const formatCurrency = (amount: number) => {
+    const safeAmount = Number(amount) || 0;
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-    }).format(amount / 100);
+    }).format(safeAmount / 100);
   };
 
   const formatNumber = (num: number) => {

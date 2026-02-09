@@ -60,7 +60,7 @@ const EnhancedOrdersTab = ({
   // Calculate order statistics from local orders
   const totalOrders = localOrders.length;
   const totalRevenue = localOrders.reduce(
-    (sum, order) => sum + order.totalAmount,
+    (sum, order) => sum + (Number(order.totalAmount) || 0),
     0
   );
   const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
@@ -105,10 +105,11 @@ const EnhancedOrdersTab = ({
   };
 
   const formatCurrency = (amount: number) => {
+    const safeAmount = Number(amount) || 0;
     return new Intl.NumberFormat("en-GB", {
       style: "currency",
       currency: "GBP",
-    }).format(amount / 100);
+    }).format(safeAmount / 100);
   };
 
   const formatDateTime = (dateString: string) => {
