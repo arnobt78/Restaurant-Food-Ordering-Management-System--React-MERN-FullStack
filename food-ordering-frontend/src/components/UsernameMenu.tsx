@@ -55,24 +55,24 @@ const UsernameMenu = () => {
           />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56 p-2">
         <div className="px-2 py-2">
           <p className="font-medium">{name || "User"}</p>
           <p className="text-xs text-muted-foreground">{email}</p>
         </div>
-        <Separator />
-        <DropdownMenuItem onClick={handleMenuClick}>
+        <Separator className="my-2" />
+        <DropdownMenuItem onClick={handleMenuClick} className="py-3 rounded-md">
           <Link to="/manage-restaurant" className="font-bold hover:text-orange-500">
             Manage Restaurant
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleMenuClick}>
+        <DropdownMenuItem onClick={handleMenuClick} className="py-3 rounded-md">
           <Link to="/user-profile" className="font-bold hover:text-orange-500">
             User Profile
           </Link>
         </DropdownMenuItem>
-        <Separator />
-        <DropdownMenuItem>
+        <Separator className="my-2" />
+        <DropdownMenuItem className="py-3 rounded-md">
           <Button onClick={handleLogout} className="w-full font-bold bg-orange-500">
             Log Out
           </Button>
