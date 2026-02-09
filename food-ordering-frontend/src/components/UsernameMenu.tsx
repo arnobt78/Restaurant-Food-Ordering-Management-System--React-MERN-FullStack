@@ -9,7 +9,6 @@ import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import * as authApi from "@/api/authApi";
-import { useQueryClient } from "react-query";
 
 const getAvatarUrl = () => {
   const image = localStorage.getItem("user_image");
@@ -23,7 +22,6 @@ const getAvatarUrl = () => {
 const UsernameMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const queryClient = useQueryClient();
 
   const email = localStorage.getItem("user_email");
   const name = localStorage.getItem("user_name");
@@ -39,8 +37,8 @@ const UsernameMenu = () => {
       if (key.startsWith("cartItems-")) sessionStorage.removeItem(key);
     });
     await authApi.signOut();
-    queryClient.invalidateQueries("validateToken");
     setIsOpen(false);
+    // Navigate immediately to avoid flicker – no invalidateQueries before reload
     window.location.href = "/";
   };
 

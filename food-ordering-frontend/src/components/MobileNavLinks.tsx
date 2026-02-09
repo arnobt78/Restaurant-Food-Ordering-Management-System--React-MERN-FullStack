@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import * as authApi from "@/api/authApi";
-import { useQueryClient } from "react-query";
 
 const MobileNavLinks = () => {
-  const queryClient = useQueryClient();
   const handleLogout = async () => {
     Object.keys(sessionStorage).forEach((key) => {
       if (key.startsWith("cartItems-")) sessionStorage.removeItem(key);
     });
     await authApi.signOut();
-    queryClient.invalidateQueries("validateToken");
+    // Navigate immediately to avoid flicker – no invalidateQueries before reload
     window.location.href = "/";
   };
   return (
